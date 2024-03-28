@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import questions from "../data/questions";
 import { IFormInput } from "../data/answer";
 
+import styles from "./../styles/QuizGame.module.css";
+
 export default function QuizGame() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isPending, startTransition] = useTransition();
@@ -48,15 +50,16 @@ export default function QuizGame() {
   };
 
   return (
-    <div>
-      <h2>Quiz Game</h2>
+    <div className={styles.container}>
       {isPending && <div>Loading next question...</div>}
       {!isPending && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <p>{questions[currentQuestionIndex].question}</p>
+            <p className={styles.question}>
+              {questions[currentQuestionIndex].question}
+            </p>
             {questions[currentQuestionIndex].answers.map((answer, index) => (
-              <div key={index}>
+              <div key={index} className={styles.answer}>
                 <input
                   {...register("answer", { required: true })}
                   type="radio"
@@ -67,7 +70,9 @@ export default function QuizGame() {
               </div>
             ))}
           </div>
-          <button type="submit">Submit</button>
+          <button className={styles.button} type="submit">
+            Submit
+          </button>
         </form>
       )}
     </div>

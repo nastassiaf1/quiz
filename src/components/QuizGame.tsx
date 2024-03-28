@@ -13,13 +13,11 @@ export default function QuizGame() {
 
   useEffect(() => {
     timerRef.current = window.setTimeout(() => {
-      // Show a popup or move to next question
       alert("Time's up for this question. Moving to next question.");
       moveToNextQuestion();
-    }, 10000); // 10 seconds per question
+    }, 10000);
 
     return () => {
-      // Clear the timer on cleanup
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [currentQuestionIndex]);
@@ -38,11 +36,10 @@ export default function QuizGame() {
   const onSubmit = (data: IFormInput) => {
     if (timerRef.current) clearTimeout(timerRef.current);
 
-    // Check if the answer is correct
     const correctAnswer = questions[currentQuestionIndex].correctAnswer;
     if (data.answer === correctAnswer) {
       alert("Correct!");
-      setScore(score + 1); // Increment score if correct
+      setScore(score + 1);
     } else {
       alert(`Wrong! The correct answer was: ${correctAnswer}`);
     }
